@@ -1,0 +1,11 @@
+{
+    "name": "AVANA VILLAS",
+    "version": "1.0.0",
+    "description": "Premium Mountain Villa Destination in Jezerc",
+    "author": "Antigravity AI",
+    "tech_stack": {
+        "frontend": ["HTML5", "Vanilla CSS", "JavaScript"],
+        "backend": ["Node.js", "Express", "SQLite"],
+        "hosting_recommendation": "DigitalOcean / Heroku / VPS"
+    }
+}

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVANA Admin | Paneli i Menaxhimit</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+        :root {
+            --admin-bg: #F4F4F2;
+            --admin-sidebar: #1a1a1a;
+            --admin-accent: #C2B4A3;
+            --danger: #e63946;
+            --success: #2a9d8f;
+            --warning: #f4a261;
+        }
+
+        body {
+            background-color: var(--admin-bg);
+            color: #333;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* LOGIN SCREEN */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* LAYOUT */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+            display: none;
+            /* Hidden until login */
+        }
+
+        /* SIDEBAR */
+        .admin-sidebar {
+            background: var(--admin-sidebar);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+            border-radius: 8px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* CONTENT */
+        .admin-content {
+            padding: 3rem;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* TABLE */
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+            /* Force scroll on mobile */
+        }
+
+        th,
+        td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #fafafa;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #666;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* CALENDAR */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: #f9f9f9;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .day-blocked {
+            background: #ffebee;
+            color: var(--danger);
+            font-weight: 700;
+            text-decoration: line-through;
+        }
+
+        /* ACTIONS */
+        .action-btn {
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: #eee;
+            margin-right: 4px;
+        }
+
+        .action-btn:hover {
+            background: #ddd;
+        }
+
+        .btn-delete {
+            color: var(--danger);
+        }
+
+        .btn-view {
+            color: var(--admin-sidebar);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                padding: 1rem;
+                z-index: 900;
+                justify-content: space-around;
+            }
+
+            .side-logo,
+            .logout-text {
+                display: none;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 0.7rem;
+                padding: 0.5rem;
+                margin: 0;
+            }
+
+            .admin-content {
+                padding: 1.5rem 1.5rem 6rem 1.5rem;
+                /* Bottom padding for nav */
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            /* Calendar mobile */
+            .calendar-day {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen">
+        <div class="login-card">
+            <h2 style="margin-bottom: 2rem;">AVANA ADMIN</h2>
+            <form id="login-form">
+                <input type="text" id="username" class="form-input" placeholder="Përdoruesi"
+                    style="width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="password" id="password" class="form-input" placeholder="Fjalëkalimi"
+                    style="width: 100%; padding: 1rem; margin-bottom: 2rem; border: 1px solid #ddd; border-radius: 4px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">HYR</button>
+            </form>
+            <p id="login-error" style="color: var(--danger); margin-top: 1rem; display: none;">Të dhëna të pasakta!</p>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div class="admin-layout" id="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="side-logo">
+                <h2 style="letter-spacing: 0.cap;">AVANA</h2>
+                <p style="opacity: 0.5; font-size: 1rem;">PANELI</p>
+            </div>
+
+            <nav>
+                <div class="nav-item active" onclick="switchTab('dashboard')">
+                    <span class="material-icons-round">dashboard</span>
+                    <span>Pasqyra</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('bookings')">
+                    <span class="material-icons-round">book_online</span>
+                    <span>Rezervimet</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('calendar')">
+                    <span class="material-icons-round">calendar_month</span>
+                    <span>Kalendari</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('prices')">
+                    <span class="material-icons-round">euro</span>
+                    <span>Çmimet</span>
+                </div>
+
+                <a href="../index.html" class="nav-item"
+                    style="text-decoration: none; color: inherit; margin-top: 2rem;">
+                    <span class="material-icons-round">arrow_back</span>
+                    <span>Kthehu në Platformë</span>
+                </a>
+            </nav>
+
+            <div class="nav-item" onclick="logout()">
+                <span class="material-icons-round">logout</span>
+                <span class="logout-text">Dil</span>
+            </div>
+        </aside>
+
+        <main class="admin-content">
+
+            <!-- DASHBOARD VIEW -->
+            <section id="view-dashboard">
+                <h2 style="margin-bottom: 2rem;">Pasqyra e Përgjithshme</h2>
+                <div class="stats-grid" id="stats-container">
+                    <!-- Loaded via JS -->
+                </div>
+            </section>
+
+            <!-- BOOKINGS VIEW -->
+            <section id="view-bookings" style="display: none;">
+                <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2>Të Gjitha Rezervimet</h2>
+                    <button class="btn btn-outline" style="color: #333; border-color: #333;"
+                        onclick="fetchBookings()">Rifresko</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Klienti</th>
+                                <th>Vila</th>
+                                <th>Datat</th>
+                                <th>Statusi</th>
+                                <th>Veprime</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-table">
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CALENDAR VIEW -->
+            <section id="view-calendar" style="display: none;">
+                <h2 style="margin-bottom: 2rem;">Disponueshmëria</h2>
+                <div class="flex" style="gap: 1rem; margin-bottom: 2rem;">
+                    <button class="btn btn-primary" onclick="renderCalendar('Standard')">Standard</button>
+                    <button class="btn btn-outline" style="color:#333; border-color:#333;"
+                        onclick="renderCalendar('Premium')">Premium</button>
+                </div>
+                <h3 id="calendar-title" style="margin-bottom: 1rem;">Tetor 2023</h3>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </section>
+
+            <!-- PRICES VIEW -->
+            <section id="view-prices" style="display: none;">
+                <h2 style="margin-bottom: 2rem;">Menaxhimi i Çmimeve</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4 style="opacity:0.5; font-size:0.8rem; margin-bottom: 1rem;">VILA STANDARDE (për natë)</h4>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="price-Standard" class="form-input"
+                                style="width: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <button class="btn btn-primary" onclick="updatePrice('Standard')">Ruaj</button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h4 style="opacity:0.5; font-size:0.8rem; margin-bottom: 1rem;">VILA PREMIUM (për natë)</h4>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="price-Premium" class="form-input"
+                                style="width: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <button class="btn btn-primary" onclick="updatePrice('Premium')">Ruaj</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- BOOKING DETAIL MODAL -->
+    <div class="modal-overlay" id="booking-modal">
+        <div class="modal-content">
+            <div class="flex justify-between" style="margin-bottom: 1.5rem;">
+                <h3>Detajet e Rezervimit</h3>
+                <span class="material-icons-round" style="cursor: pointer;" onclick="closeModal()">close</span>
+            </div>
+            <div id="modal-details" style="font-size: 0.9rem; line-height: 1.8;">
+                <!-- Details -->
+            </div>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button class="btn btn-outline" style="flex: 1; border-color: var(--danger); color: var(--danger);"
+                    onclick="deleteBooking(currentBookingId)">Fshi Përgjithmonë</button>
+                <button class="btn btn-primary" style="flex: 1;"
+                    onclick="updateStatus(currentBookingId, 'cancelled')">Anulo (Soft)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let AUTH_TOKEN = localStorage.getItem('avana_token');
+        let allBookings = [];
+        let currentBookingId = null;
+
+        // AUTH CHECK
+        if (AUTH_TOKEN) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('admin-layout').style.display = 'grid';
+            initDashboard();
+        }
+
+        // LOGIN
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            try {
+                const res = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: u, password: p })
+                });
+                const data = await res.json();
+
+                if (data.token) {
+                    AUTH_TOKEN = data.token;
+                    localStorage.setItem('avana_token', data.token);
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('admin-layout').style.display = 'grid';
+                    initDashboard();
+                } else {
+                    document.getElementById('login-error').style.display = 'block';
+                }
+            } catch (err) { console.error(err); }
+        });
+
+        function logout() {
+            localStorage.removeItem('avana_token');
+            location.reload();
+        }
+
+        // NAVIGATION
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            if (event) event.currentTarget.classList.add('active');
+
+            document.getElementById('view-dashboard').style.display = 'none';
+            document.getElementById('view-bookings').style.display = 'none';
+            document.getElementById('view-calendar').style.display = 'none';
+            document.getElementById('view-prices').style.display = 'none';
+
+            document.getElementById(`view-${tab}`).style.display = 'block';
+        }
+
+        async function initDashboard() {
+            fetchStats();
+            fetchBookings();
+            fetchPricesForAdmin();
+            renderCalendar('Standard'); // Default
+        }
+
+        // --- PRICES LOGIC ---
+        async function fetchPricesForAdmin() {
+            try {
+                const res = await fetch(`${API_BASE}/prices`);
+                const prices = await res.json();
+
+                prices.forEach(p => {
+                    const input = document.getElementById(`price-${p.villaType}`);
+                    if (input) input.value = p.pricePerNight;
+                });
+            } catch (err) { console.error(err); }
+        }
+
+        async function updatePrice(type) {
+            const input = document.getElementById(`price-${type}`);
+            const newPrice = input.value;
+
+            if (!newPrice || newPrice < 0) return alert('Çmimi nuk është valid!');
+
+            try {
+                const res = await fetch(`${API_BASE}/prices/${type}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                    },
+                    body: JSON.stringify({ pricePerNight: newPrice })
+                });
+
+                if (res.ok) {
+                    alert('Çmimi u përditësua me sukses!');
+                } else {
+                    alert('Gabim gjatë përditësimit.');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        // FETCH DATA
+        async function fetchBookings() {
+            try {
+                const res = await fetch(`${API_BASE}/admin/bookings`, {
+                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                });
+                if (res.status === 401) logout();
+
+                allBookings = await res.json();
+                renderTable(allBookings);
+            } catch (err) { console.error(err); }
+        }
+
+        async function fetchStats() {
+            const res = await fetch(`${API_BASE}/admin/stats`, {
+                headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+            });
+            const stats = await res.json();
+            const container = document.getElementById('stats-container');
+            container.innerHTML = `
+                <div class="stat-card">
+                    <h4 style="opacity:0.5; font-size:0.8rem;">TOTALI</h4>
+                    <span style="font-size: 2.5rem; font-weight: 800;">${stats.total}</span>
+                </div>
+                <div class="stat-card">
+                    <h4 style="opacity:0.5; font-size:0.8rem;">CONFIRMED</h4>
+                    <span style="font-size: 2.5rem; font-weight: 800; color: var(--success);">${stats.confirmed}</span>
+                </div>
+                <div class="stat-card">
+                    <h4 style="opacity:0.5; font-size:0.8rem;">PENDING</h4>
+                    <span style="font-size: 2.5rem; font-weight: 800; color: var(--warning);">${stats.pending}</span>
+                </div>
+            `;
+        }
+
+        // RENDER TABLE
+        function renderTable(bookings) {
+            const tbody = document.getElementById('bookings-table');
+            tbody.innerHTML = bookings.map(b => `
+                <tr>
+                    <td>
+                        <div style="font-weight: 700;">${b.name}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.6;">${b.email}</div>
+                    </td>
+                    <td>${b.villaType}</td>
+                    <td>
+                        <div style="font-size: 0.85rem;">${b.checkIn} -> ${b.checkOut}</div>
+                    </td>
+                    <td>
+                        <span class="status-badge status-${b.status}">${b.status}</span>
+                    </td>
+                    <td>
+                        <button class="action-btn btn-view" onclick="viewBooking(${b.id})">
+                            <span class="material-icons-round" style="font-size: 1.2rem;">visibility</span>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // VIEW / EDIT / DELETE
+        function viewBooking(id) {
+            const b = allBookings.find(x => x.id === id);
+            currentBookingId = id;
+            if (!b) return;
+
+            const modal = document.getElementById('booking-modal');
+            const content = document.getElementById('modal-details');
+
+            content.innerHTML = `
+                <p><strong>Emri:</strong> ${b.name}</p>
+                <p><strong>Email:</strong> ${b.email}</p>
+                <p><strong>Tel:</strong> ${b.phone}</p>
+                <p><strong>Vila:</strong> ${b.villaType}</p>
+                <p><strong>Datat:</strong> ${b.checkIn} - ${b.checkOut}</p>
+                <p><strong>Mysafirë:</strong> ${b.guests}</p>
+                <p><strong>Mesazhi:</strong> ${b.message || '-'}</p>
+                <p><strong>Statusi:</strong> ${b.status}</p>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').style.display = 'none';
+        }
+
+        async function updateStatus(id, status) {
+            if (!confirm(`Jeni i sigurt që doni të ndryshoni statusin në ${status}?`)) return;
+
+            await fetch(`${API_BASE}/admin/bookings/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${AUTH_TOKEN}`
+                },
+                body: JSON.stringify({ status })
+            });
+            closeModal();
+            fetchBookings();
+            fetchStats();
+        }
+
+        async function deleteBooking(id) {
+            if (!confirm('KUJDES: Ky veprim do të fshijë përgjithmonë rezervimin dhe do të lirojë datat. A jeni i sigurt?')) return;
+
+            await fetch(`${API_BASE}/admin/bookings/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+            });
+            closeModal();
+            fetchBookings();
+            fetchStats();
+        }
+
+        // CALENDAR LOGIC (Simplified for Demo)
+        async function renderCalendar(type) {
+            document.getElementById('calendar-title').textContent = `Disponueshmëria: ${type} (30 Ditët e Ardhshme)`;
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = 'Loading...';
+
+            // Fetch blocked dates
+            const res = await fetch(`${API_BASE}/availability?villaType=${type}`);
+            const blockedRanges = await res.json(); // [{checkIn, checkOut}, ...]
+
+            grid.innerHTML = '';
+
+            // Generate next 30 days
+            const today = new Date();
+            for (let i = 0; i < 35; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                const dateStr = d.toISOString().split('T')[0];
+
+                // Check block
+                const isBlocked = blockedRanges.some(r => {
+                    return dateStr >= r.checkIn && dateStr <= r.checkOut;
+                });
+
+                const div = document.createElement('div');
+                div.className = `calendar-day ${isBlocked ? 'day-blocked' : ''}`;
+                div.textContent = d.getDate();
+                if (isBlocked) div.title = "E Rezervuar";
+
+                grid.appendChild(div);
+            }
+        }
+    </script>
+</body>
+
+</html>

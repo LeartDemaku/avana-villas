@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria | AVANA VILLAS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            background: var(--color-text);
+            color: white;
+            padding-top: 150px;
+            padding-bottom: 80px;
+        }
+
+        .page-header h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 2rem;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="home-page">
+    <!-- Using .home-page style (white text on dark header) is correct here because page-header is dark -->
+
+    <header class="header" id="main-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">AVANA VILLAS</a>
+            <nav class="nav-links">
+                <a href="index.html#villas" class="nav-link">Projekti</a>
+                <a href="villas.html" class="nav-link">Vilat</a>
+                <a href="gallery.html" class="nav-link">Galeria</a>
+                <a href="bookings.html" class="btn btn-outline"
+                    style="border-radius: 100px; padding: 0.8rem 2rem; font-size: 0.7rem;">Rezervo Tani</a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">Kreu</a>
+        <a href="villas.html" class="nav-link">Vilat</a>
+        <a href="gallery.html" class="nav-link">Galeria</a>
+        <a href="bookings.html" class="btn btn-primary" style="margin-top: 2rem;">Rezervo Tani</a>
+    </div>
+
+    <!-- Page Header (Dark Background) -->
+    <section class="page-header text-center">
+        <div class="container reveal">
+            <h3>Vizioni</h3>
+            <h2>Galeria Vizuale</h2>
+            <p style="max-width: 600px; margin: 0 auto; font-size: 1.2rem; opacity: 0.8;">Një përzgjedhje e veçantë e
+                pikave arkitektonike dhe natyrës së Jezercit.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Using .responsive-gallery for robust mobile support -->
+            <div class="responsive-gallery" style="gap: 2rem;">
+                <div class="reveal card-scale" style="grid-column: span 8; aspect-ratio: 16/9;">
+                    <img src="Avana Villas.png" alt="Pamje e Jashtme" style="border-radius: var(--radius-sm);">
+                </div>
+                <!-- ... other images ... -->
+                <div class="reveal card-scale stagger-1" style="grid-column: span 4; aspect-ratio: 4/5;">
+                    <img src="2020.jpg" alt="Arkitekturë" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="reveal card-scale stagger-2" style="grid-column: span 4; aspect-ratio: 1/1;">
+                    <img src="1111.jpg" alt="Detaje" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="reveal card-scale stagger-3" style="grid-column: span 8; aspect-ratio: 16/9;">
+                    <img src="hija-e-maleve-restaurant.jpg" alt="Restorant" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="reveal card-scale" style="grid-column: span 6; aspect-ratio: 4/3;">
+                    <img src="641064163.jpg" alt="Brendësi" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="reveal card-scale stagger-1" style="grid-column: span 6; aspect-ratio: 4/3;">
+                    <img src="020265.jpg" alt="Materiale" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="reveal card-scale stagger-2" style="grid-column: span 12; aspect-ratio: 21/9;">
+                    <img src="one-of-the-may-beautiful.jpg" alt="Panoramë" style="border-radius: var(--radius-sm);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>AVANA</h2>
+                    <p>Projekti më i lartë rezidencial në Kosovë. Aty ku arkitektura takohet me qiellin.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Eksperienca</h4>
+                    <ul class="footer-links">
+                        <li><a href="villas.html">Portofolio i Vilave</a></li>
+                        <li><a href="gallery.html">Galeria Vizuale</a></li>
+                        <li><a href="bookings.html">Rezervime</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Kontakti</h4>
+                    <ul class="footer-links">
+                        <li>info@avanavillas.com</li>
+                        <li>+383 49 000 000</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 AVANA VILLAS. Të gjitha të drejtat e rezervuara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

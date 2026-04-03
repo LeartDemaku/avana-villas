@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervime | AVANA VILLAS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .booking-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--color-bg);
+        }
+
+        .booking-form-section {
+            padding: 160px 10% 80px;
+            overflow-y: auto;
+        }
+
+        .booking-visual-section {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background: var(--color-text);
+            color: white;
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .booking-visual-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Avana Villas.png') center/cover;
+            opacity: 0.4;
+            transition: var(--transition-smooth);
+        }
+
+        .booking-summary {
+            position: relative;
+            z-index: 10;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .form-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .booking-page {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-visual-section {
+                display: none;
+            }
+
+            .booking-form-section {
+                padding: 120px 2rem 60px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-group-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="light-mode"> <!-- Force light mode header (Dark Text) because background is light -->
+
+    <header class="header" id="main-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">AVANA VILLAS</a>
+            <nav class="nav-links">
+                <a href="index.html#villas" class="nav-link">Projekti</a>
+                <a href="villas.html" class="nav-link">Vilat</a>
+                <a href="index.html" class="btn btn-outline"
+                    style="border-radius: 100px; padding: 0.8rem 2rem; font-size: 0.7rem;">Kthehu</a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">Kreu</a>
+        <a href="villas.html" class="nav-link">Vilat</a>
+        <a href="bookings.html" class="btn btn-primary">Rezervo Tani</a>
+    </div>
+
+    <main class="booking-page">
+        <!-- Form Section -->
+        <div class="booking-form-section">
+            <div class="reveal">
+                <h3>Rezervimet</h3>
+                <h2 style="margin: 2rem 0;">Rezervoni Qëndrimin</h2>
+                <p style="margin-bottom: 4rem;">Zgjidhni datat dhe tipin e vilës. Ekipi ynë do të konfirmojë kërkesën
+                    tuaj shumë shpejtë.</p>
+
+                <form id="booking-form" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label class="form-label"
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Emri
+                            i Plotë</label>
+                        <input type="text" name="name" class="form-input" placeholder="Emri dhe Mbiemri" required
+                            style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label class="form-label"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Adresa
+                                Email</label>
+                            <input type="email" name="email" class="form-input" placeholder="email@shembull.com"
+                                required
+                                style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Numri
+                                i Telefonit</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="+383 49 ..." required
+                                style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Tipi
+                            i Vilës</label>
+                        <select name="villaType" class="form-input" id="villaTypeSelect" required
+                            style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;"></select>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label class="form-label"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Data
+                                e Hyrjes</label>
+                            <input type="date" name="checkIn" class="form-input" id="checkIn" required
+                                style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"
+                                style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Data
+                                e Daljes</label>
+                            <input type="date" name="checkOut" class="form-input" id="checkOut" required
+                                style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Numri
+                            i Mysafirëve</label>
+                        <input type="number" name="guests" class="form-input" min="1" max="8" value="2" required
+                            style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">Kërkesa
+                            të Veçanta</label>
+                        <textarea name="message" class="form-input" rows="4" placeholder="Mesazh për stafin..."
+                            style="width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                    </div>
+
+                    <div style="margin-top: 5rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.6rem;">Dërgoni
+                            Kërkesën</button>
+                        <p id="form-status"
+                            style="margin-top: 2rem; font-weight: 700; text-align: center; display: none;"></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Visual / Summary Section -->
+        <div class="booking-visual-section">
+            <div class="booking-visual-bg" id="booking-visual-bg"></div>
+
+            <div class="booking-summary">
+                <h4
+                    style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.5; margin-bottom: 3rem;">
+                    Përmbledhja</h4>
+
+                <div class="summary-item">
+                    <span style="opacity: 0.6;">Destinacioni</span>
+                    <span style="font-weight: 700;">Jezerc, Kosovë</span>
+                </div>
+                <div class="summary-item">
+                    <span style="opacity: 0.6;">Vila e Zgjedhur</span>
+                    <span style="font-weight: 700;" id="summary-villa">---</span>
+                </div>
+                <div class="summary-item">
+                    <span style="opacity: 0.6;">Çmimi për Natë</span>
+                    <span style="font-weight: 700;" id="summary-price">€0.00</span>
+                </div>
+                <div class="summary-item" style="border: none; padding-top: 4rem;">
+                    <span style="font-size: 1.4rem; font-weight: 800;">Totali i Përllogaritur</span>
+                    <span style="font-size: 1.4rem; font-weight: 800;" id="summary-total">€0.00</span>
+                </div>
+            </div>
+
+            <div style="position: relative; z-index: 10;">
+                <p style="font-size: 0.75rem; opacity: 0.4; line-height: 1.6;">* Të gjitha kërkesat shqyrtohen nga ekipi
+                    ynë i menaxhimit. Detajet e konfirmimit dhe pagesës do të dërgohen përmes emailit.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let currentPrices = {};
+
+        // Added error handling and default prices in case API is down (Frontend-only usage)
+        const defaultPrices = [
+            { villaType: 'Standard', pricePerNight: 135 },
+            { villaType: 'Premium', pricePerNight: 180 }
+        ];
+
+        async function loadPrices() {
+            try {
+                // Attempt to fetch from API
+                const res = await fetch(`${API_BASE}/prices`);
+                if (!res.ok) throw new Error('API not available');
+                const data = await res.json();
+                renderOptions(data);
+                fetchBlockedDates(); // START fetching blocked dates
+            } catch (err) {
+                console.warn('API fetch failed, using defaults');
+                renderOptions(defaultPrices);
+            }
+        }
+
+        let blockedRanges = [];
+
+        async function fetchBlockedDates() {
+            const type = document.getElementById('villaTypeSelect').value;
+            if (!type) return;
+            try {
+                const res = await fetch(`${API_BASE}/availability?villaType=${type}`);
+                blockedRanges = await res.json();
+                validateDates(); // Check immediately
+            } catch (err) { console.error('Failed to load blocked dates'); }
+        }
+
+        // Validate if selected dates overlap with blocked ranges
+        function validateDates() {
+            const checkInInput = document.getElementById('checkIn');
+            const checkOutInput = document.getElementById('checkOut');
+            const status = document.getElementById('form-status');
+
+            if (!checkInInput.value) return;
+
+            const start = new Date(checkInInput.value);
+            // Default checkOut to start+1 if not set? No, let user set it.
+            // Simplified check: is the CheckIn date itself blocked?
+
+            // Check overlaps
+            if (checkInInput.value && checkOutInput.value) {
+                const s = checkInInput.value;
+                const e = checkOutInput.value;
+
+                const hasOverlap = blockedRanges.some(r => {
+                    return (s <= r.checkOut && e >= r.checkIn);
+                });
+
+                if (hasOverlap) {
+                    status.style.display = 'block';
+                    status.innerHTML = '<span style="color: #c62828">KUJDES: Datat e zgjedhura janë të rezervuara! Ju lutem zgjidhni data tjera.</span>';
+                    // Optional: clear dates?
+                    // checkInInput.value = '';
+                    // checkOutInput.value = '';
+                    return false;
+                } else {
+                    status.style.display = 'none';
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        function renderOptions(data) {
+            const select = document.getElementById('villaTypeSelect');
+            select.innerHTML = '';
+            data.forEach(p => {
+                currentPrices[p.villaType] = p.pricePerNight;
+                const opt = document.createElement('option');
+                opt.value = p.villaType;
+                let displayName = p.villaType === 'Standard' ? 'Vila Standarde' : 'Vila Premium';
+                opt.textContent = displayName;
+                select.appendChild(opt);
+            });
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const type = document.getElementById('villaTypeSelect').value;
+            // Fetch blocked dates whenever type changes
+            if (currentPrices[type]) { // Just a check to ensure type changed
+                // We should ideally fetchBlockedDates here but debounced
+            }
+            // ... (rest of summary logic)
+
+            const checkInInput = document.getElementById('checkIn').value;
+            const checkOutInput = document.getElementById('checkOut').value;
+            const price = currentPrices[type] || 0;
+
+            let displayName = type === 'Standard' ? 'Vila Standarde' : 'Vila Premium';
+            document.getElementById('summary-villa').textContent = displayName;
+            document.getElementById('summary-price').textContent = `€${price.toFixed(2)}`;
+
+            const bg = document.getElementById('booking-visual-bg');
+            if (bg) {
+                if (type === 'Premium') {
+                    bg.style.backgroundImage = "url('Premium.png')";
+                } else {
+                    bg.style.backgroundImage = "url('Standard.png')";
+                }
+            }
+
+            if (checkInInput && checkOutInput) {
+                const checkIn = new Date(checkInInput);
+                const checkOut = new Date(checkOutInput);
+                if (checkOut > checkIn) {
+                    const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+                    const total = nights * price;
+                    document.getElementById('summary-total').textContent = `€${total.toFixed(2)}`;
+                } else {
+                    document.getElementById('summary-total').textContent = `€0.00`;
+                }
+                validateDates(); // Validation call
+            } else {
+                document.getElementById('summary-total').textContent = `€0.00`;
+            }
+        }
+
+        const typeSelect = document.getElementById('villaTypeSelect');
+        if (typeSelect) typeSelect.addEventListener('change', () => {
+            fetchBlockedDates(); // Fetch new dates when type changes
+            updateSummary();
+        });
+
+        const checkIn = document.getElementById('checkIn');
+        if (checkIn) checkIn.addEventListener('change', updateSummary);
+
+        const checkOut = document.getElementById('checkOut');
+        if (checkOut) checkOut.addEventListener('change', updateSummary);
+
+        const bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (!validateDates()) {
+                    alert('Datat e zgjedhura janë të zëna. Ju lutem ndërroni datat.');
+                    return;
+                }
+
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData);
+                const status = document.getElementById('form-status');
+
+                status.style.display = 'block';
+                status.textContent = 'DUKE DËRGUAR KËRKESËN...';
+                status.style.color = 'var(--color-text)';
+
+                try {
+                    const response = await fetch(`${API_BASE}/bookings`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        status.innerHTML = '<span style="color: #2e7d32">KËRKESA U DËRGUA ME SUKSES. DO T\'JU KONTAKTOJMË SË SHPEJTI.</span>';
+                        e.target.reset();
+                        updateSummary();
+                    } else if (response.status === 409) {
+                        status.textContent = 'GABIM: Datat e zgjedhura janë tashmë të rezervuara.';
+                        status.style.color = '#c62828';
+                    } else { 
+                        const errData = await response.json();
+                        throw new Error(errData.error || 'DËRGIMI DËSHTOI.');
+                    }
+                } catch (err) {
+                    if (status.textContent !== 'GABIM: Datat e zgjedhura janë tashmë të rezervuara.') {
+                        status.textContent = err.message.toUpperCase();
+                        status.style.color = '#c62828';
+                    }
+                }
+            });
+        }
+
+        loadPrices();
+    </script>
+</body>
+
+</html>

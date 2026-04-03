@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vilat | AVANA VILLAS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            background: var(--color-text);
+            color: white;
+            padding-top: 150px;
+            padding-bottom: 80px;
+        }
+
+        .page-header h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 2rem;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="home-page"> <!-- Using .home-page style for dark header base -->
+
+    <header class="header" id="main-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">AVANA VILLAS</a>
+            <nav class="nav-links">
+                <a href="index.html#villas" class="nav-link">Projekti</a>
+                <a href="index.html#about" class="nav-link">Filozofia</a>
+                <a href="gallery.html" class="nav-link">Galeria</a>
+                <a href="bookings.html" class="btn btn-outline"
+                    style="border-radius: 100px; padding: 0.8rem 2rem; font-size: 0.7rem;">Rezervo Tani</a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">Kreu</a>
+        <a href="index.html#villas" class="nav-link">Projekti</a>
+        <a href="gallery.html" class="nav-link">Galeria</a>
+        <a href="bookings.html" class="btn btn-primary" style="margin-top: 2rem;">Rezervo Tani</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header text-center">
+        <div class="container reveal">
+            <h3>Rezidenca</h3>
+            <h2>Tipologjitë e Vilave</h2>
+            <p style="max-width: 600px; margin: 0 auto; font-size: 1.2rem; opacity: 0.8;">Dy gjuhë të ndryshme
+                arkitektonike, një standard i përsosmërisë.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Standard Villa -->
+            <div class="responsive-grid-large reveal" style="margin-bottom: 12rem;">
+                <div class="card-scale">
+                    <img src="Standard.png" alt="Vila Standarde" style="border-radius: var(--radius-sm);">
+                </div>
+                <div>
+                    <h2>Vila Standarde</h2>
+                    <p style="margin: 2rem 0;">Një kryevepër njëkatëshe prej 110m², e dizajnuar me efikasitet dhe
+                        ngrohtësi. Ideale për ata që kërkojnë një vendstrehim modern malor me theks në ndërlidhjen me
+                        natyrën.</p>
+                    <ul
+                        style="margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
+                        <li>• 110m² Hapësirë</li>
+                        <li>• 2 Dhoma Gjumi</li>
+                        <li>• 45m² Tarracë</li>
+                        <li>• Enterier Druri</li>
+                    </ul>
+                    <div class="flex items-center justify-between"
+                        style="border-top: 1px solid #eee; padding-top: 3rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <span
+                                style="display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--color-text-muted);">Çmimi
+                                për natë</span>
+                            <span id="price-display-Standard" style="font-size: 2rem; font-weight: 800;">€135</span>
+                        </div>
+                        <a href="bookings.html" class="btn btn-primary">Rezervo Vilën</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Villa -->
+            <div class="responsive-grid-large reveal">
+                <div class="card-scale content-order" style="order: 2;">
+                    <img src="Premium.png" alt="Vila Premium" style="border-radius: var(--radius-sm);">
+                </div>
+                <div class="image-order" style="order: 1;">
+                    <h2>Vila Premium</h2>
+                    <p style="margin: 2rem 0;">Kulmi i AVANA-s. 165m² në dy nivele, me dhomë ndenjeje me lartësi të
+                        dyfishtë dhe suitë private panoramike.</p>
+                    <ul
+                        style="margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">
+                        <li>• 165m² Hapësirë</li>
+                        <li>• 4 Dhoma Gjumi</li>
+                        <li>• Sauna Private</li>
+                        <li>• Ballkon Panoramik</li>
+                    </ul>
+                    <div class="flex items-center justify-between"
+                        style="border-top: 1px solid #eee; padding-top: 3rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <span
+                                style="display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--color-text-muted);">Çmimi
+                                për natë</span>
+                            <span id="price-display-Premium" style="font-size: 2rem; font-weight: 800;">€180</span>
+                        </div>
+                        <a href="bookings.html" class="btn btn-primary">Rezervo Vilën</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>AVANA</h2>
+                    <p>Projekti më i lartë rezidencial në Kosovë. Aty ku arkitektura takohet me qiellin.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Eksperienca</h4>
+                    <ul class="footer-links">
+                        <li><a href="villas.html">Portofolio i Vilave</a></li>
+                        <li><a href="gallery.html">Galeria Vizuale</a></li>
+                        <li><a href="bookings.html">Rezervime</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Kontakti</h4>
+                    <ul class="footer-links">
+                        <li>info@avanavillas.com</li>
+                        <li>+383 49 000 000</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 AVANA VILLAS. Të gjitha të drejtat e rezervuara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Dynamic Price Loading
+        const API_BASE = 'http://localhost:3000/api';
+
+        async function loadPrices() {
+            try {
+                const res = await fetch(`${API_BASE}/prices`);
+                if (!res.ok) throw new Error('API unavailable');
+                const data = await res.json();
+
+                data.forEach(p => {
+                    const el = document.getElementById(`price-display-${p.villaType}`);
+                    if (el) {
+                        el.textContent = `€${p.pricePerNight}`;
+                    }
+                });
+            } catch (err) {
+                console.warn('Failed to load prices, using defaults or cached HTML values');
+            }
+        }
+
+        // Run immediately
+        loadPrices();
+    </script>
+</body>
+
+</html>

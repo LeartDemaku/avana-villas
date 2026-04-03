@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AVANA VILLAS: Destinacioni ekskluziv malor në Jezerc. Arkitekturë premium dhe qetësi absolute.">
+    <title>AVANA VILLAS | Destinacion Ekskluziv</title>
+
+    <meta property="og:title" content="AVANA VILLAS | Jezerc">
+    <meta property="og:description" content="Vila premium malore në zemër të Jezercit. Rezervoni qëndrimin tuaj.">
+    <meta property="og:image" content="Avana Villas.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Override specifically for Hero text visibility against image */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .hero h3 {
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin-bottom: 2rem;
+        }
+
+        /* Ensure navbar text is white on hero */
+        .home-page .header:not(.scrolled) .nav-link {
+            color: white !important;
+        }
+
+        .home-page .header:not(.scrolled) .logo {
+            color: white !important;
+        }
+
+        .home-page .header:not(.scrolled) .hamburger span {
+            background-color: white !important;
+        }
+    </style>
+</head>
+
+<body class="home-page">
+
+    <!-- Premium Sticky Navbar -->
+    <header class="header" id="main-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">AVANA VILLAS</a>
+
+            <nav class="nav-links">
+                <a href="#villas" class="nav-link">Projekti</a>
+                <a href="villas.html" class="nav-link">Vilat</a>
+                <a href="#about" class="nav-link">Filozofia</a>
+                <a href="#location" class="nav-link">Vendndodhja</a>
+                <a href="bookings.html" class="btn btn-outline"
+                    style="border-radius: 100px; padding: 0.8rem 2rem; font-size: 0.7rem;">Rezervo Tani</a>
+            </nav>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"
+                aria-controls="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Slide-In Menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">Kreu</a>
+        <a href="villas.html" class="nav-link">Vilat</a>
+        <a href="gallery.html" class="nav-link">Galeria</a>
+        <a href="#location" class="nav-link">Vendndodhja</a>
+        <a href="bookings.html" class="btn btn-primary" style="margin-top: 2rem;">Rezervo Tani</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-bg" id="hero-bg" style="background-image: url('Avana Villas.png');"></div>
+
+        <div class="container hero-content">
+            <h3 class="reveal stagger-1" style="display: block; font-size: 1.5rem;">JEZERC, KOSOVË</h3>
+            <h1 class="reveal stagger-2">AVANA VILLAS</h1>
+            <div class="reveal stagger-3"
+                style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
+                <a href="bookings.html" class="btn btn-primary">Rezervo Tani</a>
+                <a href="#villas" class="btn btn-outline" style="color: #bb7831; border-color: #ffffff;">Eksploro
+                    Projektin</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Vision -->
+    <section id="villas" class="section">
+        <div class="container">
+            <div class="grid responsive-grid-large">
+                <div class="reveal">
+                    <h3>Vizioni</h3>
+                    <h2 style="margin: 2rem 0;">Aty ku Dizajni Takohet me Majat</h2>
+                    <p style="margin-bottom: 3rem;">AVANA është një masterplan arkitektonik prej 30 rezidencash të
+                        qëndrueshme, të krijuara për ata që kërkojnë qetësinë e maleve pa kompromentuar luksin
+                        bashkëkohor.</p>
+
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem;">
+                        <div>
+                            <span style="font-size: 3.5rem; font-weight: 800; display: block;">30</span>
+                            <p
+                                style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; opacity: 0.6;">
+                                Rezidenca</p>
+                        </div>
+                        <div>
+                            <span style="font-size: 3.5rem; font-weight: 800; display: block;">1450m</span>
+                            <p
+                                style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; opacity: 0.6;">
+                                Lartësi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal" style="position: relative;">
+                    <div class="card-scale">
+                        <img src="2020.jpg" alt="Avana Architecture" style="border-radius: var(--radius-sm);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Preview -->
+    <section class="section" style="background-color: var(--color-surface); overflow: hidden;">
+        <div class="container">
+            <div class="reveal" style="margin-bottom: 6rem; text-align: center;">
+                <h3>Pamjet</h3>
+                <h2 style="margin-top: 1.5rem;">Jetesë e Pastër Malore</h2>
+            </div>
+
+            <div class="grid gallery-grid" style="gap: 2rem;">
+                <div class="reveal card-scale gallery-main">
+                    <img src="1111.jpg" alt="Pamje e Jashtme">
+                </div>
+                <div class="reveal card-scale stagger-1 gallery-side">
+                    <img src="one-of-the-may-beautiful.jpg" alt="Detaje Druri">
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 4rem;">
+                <a href="gallery.html" class="btn btn-outline"
+                    style="color: var(--color-text); border-color: var(--color-text);">Shiko Të Gjitha</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materials / Philosophy -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="grid responsive-grid-large">
+                <div class="reveal content-order" style="order: 2;">
+                    <h3>Ndërtim i Qëndrueshëm</h3>
+                    <h2 style="margin: 2rem 0;">Materiale Natyrore & Të Përjetshme</h2>
+                    <p style="margin-bottom: 3rem;">Ne kemi eliminuar të panevojshmen. Çdo vilë në AVANA përdor dru të
+                        vjelur nga pyje të menaxhuara dhe gurë nga guroret rajonale.</p>
+                    <a href="villas.html" class="btn btn-primary">Zbulo Tipet e Vilave</a>
+                </div>
+                <div class="reveal image-order" style="order: 1;">
+                    <div class="card-scale">
+                        <img src="020265.jpg" alt="Tekstura Materiali" style="border-radius: var(--radius-sm);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section (New) -->
+    <section id="location" class="section" style="background-color: var(--color-surface);">
+        <div class="container">
+            <div class="reveal" style="text-align: center; margin-bottom: 4rem;">
+                <h3>Vendndodhja</h3>
+                <h2>Jezerc, Kosovë</h2>
+                <p style="max-width: 600px; margin: 1rem auto; opacity: 0.7;">Një oaz qetësie vetëm 45 minuta nga
+                    Prishtina dhe 15 minuta nga Ferizaj. E aksesueshme, por plotësisht e izoluar në natyrë.</p>
+            </div>
+
+            <div class="reveal card-scale"
+                style="width: 100%; height: 500px; border-radius: 4px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+                <iframe src="https://maps.google.com/maps?q=Jezerc,+Kosovo&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>AVANA</h2>
+                    <p>Projekti më i lartë rezidencial në Kosovë. Aty ku arkitektura takohet me qiellin.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Eksperienca</h4>
+                    <ul class="footer-links">
+                        <li><a href="villas.html">Portofolio i Vilave</a></li>
+                        <li><a href="gallery.html">Galeria Vizuale</a></li>
+                        <li><a href="bookings.html">Rezervime</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Kontakti</h4>
+                    <ul class="footer-links">
+                        <li>info@avanavillas.com</li>
+                        <li>+383 49 000 000</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 AVANA VILLAS. Të gjitha të drejtat e rezervuara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

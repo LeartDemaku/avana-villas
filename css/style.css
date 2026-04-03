@@ -1,0 +1,629 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Colors - Advanced Premium Palette */
+    --color-bg: #FCFBF9;
+    --color-surface: #F5F3F0;
+    --color-text: #121212;
+    --color-text-muted: #6B6864;
+    --color-primary: #54493D;
+    --color-primary-light: #8E8375;
+    --color-accent: #C2B4A3;
+    --color-white: #FFFFFF;
+
+    /* UI Variables */
+    --header-height: 90px;
+    --container-width: 1440px;
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-smooth);
+}
+
+/* Layout */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.section {
+    padding: 120px 0;
+}
+
+/* Mobile Section Padding */
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 0;
+    }
+}
+
+.grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.responsive-grid-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 8rem;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .responsive-grid-large {
+        gap: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .responsive-grid-large {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+}
+
+.gallery-main {
+    grid-column: span 8;
+    aspect-ratio: 16/9;
+}
+
+.gallery-side {
+    grid-column: span 4;
+    aspect-ratio: 1/1;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-main,
+    .gallery-side {
+        grid-column: span 1;
+        aspect-ratio: 4/3;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* NAVBAR - FLIXED & ALWAYS VISIBLE */
+/* -------------------------------------------------------------------------- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1005;
+    /* CRITICAL: Higher than mobile menu (1001) */
+    background: transparent;
+    transition: background 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.header-inner {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Pushes Logo left, Hamburger right */
+}
+
+/* --- LOGO & TEXT COLORS --- */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    z-index: 1003;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    color: var(--color-white);
+    opacity: 0.9;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.header .btn-outline {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--color-white);
+}
+
+/* --- SCROLLED STATE --- */
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    height: 80px;
+}
+
+.header.scrolled .logo,
+.header.scrolled .nav-link {
+    color: var(--color-text);
+}
+
+.header.scrolled .btn-outline {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+/* --- BOOKING PAGE OVERRIDE --- */
+body.light-mode .header:not(.scrolled) .logo,
+body.light-mode .header:not(.scrolled) .nav-link {
+    color: var(--color-text);
+}
+
+body.light-mode .header:not(.scrolled) .btn-outline {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+/* Desktop Nav */
+.nav-links {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .nav-links {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* MOBILE MENU - HAMBURGER & SLIDE-IN (CRITICAL FIXES) */
+/* -------------------------------------------------------------------------- */
+.hamburger {
+    display: block;
+    /* Visible by default on mobile */
+    width: 32px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1003;
+    /* Above menu overlay */
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: auto;
+    /* Ensure it stays on the right */
+}
+
+@media (min-width: 1024px) {
+    .hamburger {
+        display: none !important;
+        /* Force hide on desktop */
+    }
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    /* Slightly thicker for visibility */
+    background-color: var(--color-white);
+    position: absolute;
+    right: 0;
+    transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 2px;
+}
+
+.hamburger span:nth-child(1) {
+    top: 0;
+}
+
+.hamburger span:nth-child(2) {
+    top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 20px;
+}
+
+/* Color Logic: Scrolled or Light Mode -> Dark Hamburger */
+.header.scrolled .hamburger span,
+body.light-mode .hamburger span {
+    background-color: var(--color-text) !important;
+}
+
+/* Active State (X) */
+.hamburger.active span:nth-child(1) {
+    top: 10px;
+    transform: rotate(45deg);
+    background-color: var(--color-text) !important;
+    /* Always dark when menu open (menu is white) */
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    top: 10px;
+    transform: rotate(-45deg);
+    background-color: var(--color-text) !important;
+}
+
+/* Mobile Slide-in Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: #ff9f79;
+    z-index: 1001;
+    /* Lower than header (1005) so X is visible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.mobile-menu[aria-hidden="false"] {
+    transform: translateX(0);
+}
+
+.mobile-menu .nav-link {
+    font-size: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+/* -------------------------------------------------------------------------- */
+/* MENU OPEN STATE (Visibility Fixes) */
+/* -------------------------------------------------------------------------- */
+/* When menu is open, Logo and Hamburger MUST be dark to contrast with white menu */
+body.menu-open .logo {
+    color: var(--color-text) !important;
+}
+
+body.menu-open .hamburger span {
+    background-color: var(--color-text) !important;
+}
+
+/* Fix Hamburger Active State Transformation */
+.hamburger.active span:nth-child(1) {
+    top: 10px;
+    transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    top: 10px;
+    transform: rotate(-45deg);
+}
+
+/* -------------------------------------------------------------------------- */
+/* COMPONENTS & ORDERING */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .image-order {
+        order: 1 !important;
+    }
+
+    .content-order {
+        order: 2 !important;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero h3 {
+        font-size: 1rem !important;
+    }
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.8rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-text);
+    transform: translateY(-3px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: var(--color-text);
+}
+
+/* Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-scale {
+    overflow: hidden;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.card-scale img,
+.card-scale iframe {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.card-scale img:hover {
+    transform: scale(1.06);
+}
+
+.stagger-1 {
+    transition-delay: 0.1s;
+}
+
+.stagger-2 {
+    transition-delay: 0.2s;
+}
+
+.stagger-3 {
+    transition-delay: 0.3s;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Responsive Gallery Grid (for gallery.html) */
+.responsive-gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .responsive-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .responsive-gallery>div {
+        grid-column: auto !important;
+        width: 100%;
+        aspect-ratio: 4/3 !important;
+        height: auto;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* FOOTER - MOBILE OPTIMIZED */
+/* -------------------------------------------------------------------------- */
+.main-footer {
+    background: #080808;
+    color: white;
+    padding: 100px 0 60px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 4rem;
+    margin-bottom: 80px;
+}
+
+.footer-brand {
+    grid-column: span 2;
+}
+
+.footer-brand h2 {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+}
+
+.footer-brand p {
+    max-width: 320px;
+    line-height: 1.6;
+    opacity: 0.5;
+}
+
+.footer-heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0.6;
+    font-size: 1rem;
+    list-style: none;
+    /* remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li a:hover {
+    color: var(--color-white);
+    opacity: 1;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.8rem;
+    opacity: 0.4;
+}
+
+/* Footer Mobile Overrides */
+@media (max-width: 768px) {
+    .main-footer {
+        padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Center content */
+    }
+
+    .footer-brand p {
+        margin: 0 auto;
+    }
+
+    .footer-heading {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Center Align Link Lists on Mobile */
+    .footer-links {
+        align-items: center;
+    }
+}
